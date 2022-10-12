@@ -1,0 +1,19 @@
+.docker/logs
+.docker/data
+
+# IDE
+.vscode
+.idea
+
+# OS generated files #
+.DS_Store
+
+# Logs and databases #
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+.env
+.env.dev
+.env.test

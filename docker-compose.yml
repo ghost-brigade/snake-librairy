@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  caddy:
+    restart: unless-stopped
+    image: caddy:latest
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+
+  django:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    volumes:
+      - ./:/app
+    env_file:
+      - ./.env
+
+  postgres:
+    image: postgres:13-alpine
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+    volumes:
+      - 'postgres:/var/lib/postgresql/data:rw'
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: local@localhost.local
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+
+volumes:
+    postgres:
+    pgadmin:
