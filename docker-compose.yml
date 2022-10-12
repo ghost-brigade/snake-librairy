@@ -4,6 +4,8 @@ services:
   caddy:
     restart: unless-stopped
     image: caddy:latest
+    depends_on:
+      - django
     ports:
       - 80:80
       - 443:443
@@ -49,3 +51,4 @@ services:
 volumes:
     postgres:
     pgadmin:
+
