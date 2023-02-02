@@ -1,0 +1,26 @@
+.docker/logs
+.docker/data
+
+# IDE
+.vscode
+.idea
+
+# OS generated files #
+.DS_Store
+
+# Logs and databases #
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+*.pot
+*.pyc
+
+.env
+.env.dev
+.env.test
+
+media
+venv
+__pycache__/
+local_settings.py

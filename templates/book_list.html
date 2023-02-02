@@ -1,0 +1,49 @@
+{%  extends 'base.html' %}
+{% block content %}
+
+	<div class="container mt-3">
+
+		<div class="search">
+			<form action="{% url 'book_list' %}" method="get">
+				<div class="input-group input-group-lg">
+					<input type="text" class="form-control" aria-label="Large" name="search" aria-describedby="inputGroup-sizing-lg">
+					<div class="input-group-btn">
+						<button type="submit" class="btn btn-success btn-lg">
+							Rechercher
+						</button>
+					</div>
+
+				</div>
+			</form>
+		</div>
+
+
+		<br>
+		<div class="container">
+			<div class="row g-2">
+				{% for data in book_list %}
+					<div class="col-md-4 col-sm-2">
+						<div class="p-3">
+							<div class="card" style="width: 18rem;">
+								<img src="{{ data.cover.url }}" class="card-img-top" alt="..." style="height: 250px;">
+								<div class="card-body">
+									<h5 class="card-title">{{ data.book_title }}</h5>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item">Collection:{{ data.collection }}</li>
+										<li class="list-group-item">Genre:
+											{{data.genre }}</li>
+										<li class="list-group-item">Auteur:
+											{{ data.author.username }}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
+	</div>
+
+
+{% endblock content %}

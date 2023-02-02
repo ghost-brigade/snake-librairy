@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+	<div class="container">
+		<h2 id="head" class="mt-3">
+			Inscription vendeur
+		</h2>
+		<div class="row">
+			<div class="col-md-7">
+				<form action="{% url 'bookseller_signup' %}" method="post">
+					{% csrf_token %}
+					{{ form |crispy }}
+						<input class="btn btn-primary" type="submit" value="S'inscrire">
+					</form>
+
+
+				</div>
+			</div>
+
+
+		</div>
+
+
+	{% endblock content %}

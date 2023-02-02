@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{% load static %}
+{% block head_title %}
+	Connexion
+{% endblock %}
+{% block content %}
+	<div class="container">
+
+		<h2 id="head" class="mt-3">
+			Connexion
+		</h2>
+		<div class="wrapper">
+			<div class="logo"></div>
+			<div class="text-center mt-4 name"></div>
+			<form class="p-3 mt-3" action="{% url 'login' %}" method="POST">
+				{% csrf_token %}
+				{#           {{ form|as_crispy_errors }}#}
+				<div class="row">
+					<div class="col-md-4">
+						{{ form|crispy }}
+						<button class="btn btn-danger" type="submit">Connexion</button>
+
+					</div>
+
+
+				</div>
+
+			</form>
+			<div>{#          <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>#}
+				{#          or#}
+				{#          <a href="{% url 'signup' %}">Sign up</a>#}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
