@@ -1,0 +1,8 @@
+{
+    email djangy@email.com
+    # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+https://localhost {
+    reverse_proxy django:8000
+}
