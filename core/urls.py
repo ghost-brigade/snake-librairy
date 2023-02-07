@@ -1,10 +1,11 @@
 from django.urls import path
 from . import views
 
+book_name_prefix = 'book'
+
 urlpatterns = [
-    path('', views.BookListView.as_view(), name='book_list'),
-    path('add/book/', views.AddBookView.as_view(), name='add_book'),
-    path('current/user/books/',
-         views.CurrentBookListView.as_view(), name='current_user'),
-    path('book/update/<int:pk>/', views.BookUpdateView.as_view(), name='update_book'),
+    path('', views.book.BookList.as_view(), name=book_name_prefix + '_list'),
+    path('book/my-list', views.book.BookUserList.as_view(), name=book_name_prefix + '_list_user'),
+    path('book/add', views.book.BookAdd.as_view(), name=book_name_prefix + '_add'),
+    path('book/update/<int:pk>/', views.book.BookUpdate.as_view(), name=book_name_prefix + '_update'),
 ]

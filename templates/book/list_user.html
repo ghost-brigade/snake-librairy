@@ -6,24 +6,23 @@
 
 
 		<div class="row">
-			{% for data in book_list %}
+			{% for book in books %}
 				<div class="col-md-3">
 					<div class="card" style="width: 18rem;">
-						<img src="{{ data.cover.url }}" class="card-img-top" alt="...">
+						<img src="{{ book.cover.url }}" class="card-img-top" alt="...">
 						<div class="card-body">
-							<h5 class="card-title">{{ data.book_title }}</h5>
+							<h5 class="card-title">{{ book.book_title }}</h5>
 							{#    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
 							{#    <a href="#" class="btn btn-primary">Go somewhere</a>#}
 							<ul
 								class="list-group list-group-flush">
-								{#                        <li class="list-group-item">Collection:{{ data. }}</li>#}
-								<li class="list-group-item">Collection:{{ data.collection }}</li>
-								<li class="list-group-item">Genre:
-									{{data.genre }}</li>
+								{#                        <li class="list-group-item">Collection:{{ book. }}</li>#}
+								<li class="list-group-item">Collection:{{ book.collection }}</li>
+								<li class="list-group-item">Genre: {{ book.genre|join:", " }}</li></li>
 								<li class="list-group-item">Auteur:
-									{{ data.author.username }}</li>
+									{{ book.author.username }}</li>
 								<li class="list-group-item">
-									<a href="{% url 'update_book' data.pk %}" class="btn btn-dark"></a>
+									<a href="{% url 'book_update' book.pk %}" class="btn btn-dark"></a>
 									Mettre à jour</li>
 							</ul>
 						</div>
