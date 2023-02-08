@@ -2,77 +2,78 @@
 
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-light">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="/">Snake Library</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		{% if request.user.is_authenticated and request.user.is_bookseller %}
-			<div class="collapse navbar-collapse" id="navbarScroll">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Snake Library</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 
-				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                {% if request.user.is_authenticated %}
 
-					<li>
-						<a class="nav-link active lead" aria-current="page" href="{% url 'book_list' %}">Livres</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link lead" href="{% url 'current_user' %}">Mes livres</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link lead" href="{% url 'add_book' %}">Ajouter un livre</a>
-					</li>
-					<li>
-						<a class="nav-link active lead" aria-current="page" href="{% url 'user_profile' %}">Profile</a>
-					</li>
-					<li>
-						<a class="nav-link active lead" aria-current="page" href="{% url 'logout' %}">Déconnexion</a>
-					</li>
+                    {% if request.user.is_superuser %}
+                        <li>
+                            <a class="nav-link active lead" aria-current="page" href="{% url 'admin:index' %}">Panel
+                                admin</a>
+                        </li>
+                        <li>
+                            <a class="nav-link active lead" aria-current="page"
+                               href="{% url 'user_profile' %}">Mon profil</a>
+                        </li>
+                        <li>
+                            <a class="nav-link active lead" aria-current="page"
+                               href="{% url 'logout' %}">Déconnexion</a>
+                        </li>
 
-				</ul>
-			{% elif  request.user.is_authenticated and request.user.is_customer %}
-				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    {% elif request.user.is_customer %}
 
-					<li>
-						<a class="nav-link active lead" aria-current="page" href="{% url 'book_list' %}">Livres</a>
-					</li>
-					<li>
-						<a class="nav-link active lead" aria-current="page" href="{% url 'user_profile' %}">Profile</a>
-					</li>
-					<li>
-						<a class="nav-link active lead" aria-current="page" href="{% url 'logout' %}">Déconnexion</a>
-					</li>
+                        <li>
+                            <a class="nav-link active lead" aria-current="page"
+                               href="{% url 'user_profile' %}">Profil</a>
+                        </li>
+                        <li>
+                            <a class="nav-link active lead" aria-current="page"
+                               href="{% url 'logout' %}">Déconnexion</a>
+                        </li>
 
-				</ul>
+                    {% elif request.user.is_bookseller %}
 
-			{% elif request.user.is_superuser %}
-				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        <li class="nav-item">
+                            <a class="nav-link lead" href="{% url 'current_user' %}">Mes livres</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link lead" href="{% url 'add_book' %}">Ajouter un livre</a>
+                        </li>
+                        <li>
+                            <a class="nav-link active lead" aria-current="page"
+                               href="{% url 'user_profile' %}">Mon profil</a>
+                        </li>
+                        <li>
+                            <a class="nav-link active lead" aria-current="page"
+                               href="{% url 'logout' %}">Déconnexion</a>
+                        </li>
 
-					<li>
-						<a class="nav-link active lead" aria-current="page" href="{% url 'book_list' %}">Books</a>
-					</li>
-					<li>
-						<a class="nav-link active lead" aria-current="page" href="{% url 'logout' %}">Logout</a>
-					</li>
-					<li>
-						<a class="nav-link active lead" aria-current="page" href="{% url 'user_profile' %}">Profile</a>
-					</li>
-				</ul>
+                    {% endif %}
 
-				{%else%}
-				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-					<div class="d-flex">
-						<li class="nav-item">
-							<a class="nav-link" href="{% url 'customer_signup' %}">Inscription client</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{% url 'bookseller_signup' %}">Inscription vendeur</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{% url 'login' %}">Connexion</a>
-						</li>
-					</div>
-				{%endif %}
-			</ul>
-		</div>
-	</div>
+                {% else %}
+
+                    <div class="d-flex">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'customer_signup' %}">Inscription client</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'bookseller_signup' %}">Inscription vendeur</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Connexion</a>
+                        </li>
+                    </div>
+
+                {% endif %}
+            </ul>
+
+        </div>
+    </div>
 </nav>
