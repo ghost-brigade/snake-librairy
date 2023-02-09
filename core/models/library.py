@@ -7,8 +7,8 @@ from accounts.models import User
 class Library(models.Model):
     name = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.FloatField(null=True, blank=True)
+    latitude = models.FloatField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateField(auto_now_add=True)
+    # created_at = models.DateField(auto_now_add=True)
     books = models.ManyToManyField(Book, through=BookLibrary)

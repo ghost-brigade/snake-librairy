@@ -7,4 +7,4 @@ class BookLibrary(models.Model):
     book_available = models.BooleanField(default=True)
     collection = models.PositiveIntegerField()
     library = models.ForeignKey('Library', on_delete=models.CASCADE)
-    created_at = models.DateField(auto_now_add=True)
+    #created_at = models.DateField(auto_now_add=True)
