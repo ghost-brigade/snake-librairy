@@ -19,15 +19,18 @@ class AddBookForm(forms.ModelForm):
 class BookReservationForm(forms.ModelForm):
     limit_date = forms.DateField(
         widget=forms.TextInput(attrs={'type': 'date'}),
-        help_text='Select the date you want to return the book (maximum 10 days after the current date).'
+        help_text='La date de retour du livre ne peut pas être supérieur à 10 jours après la date du jour.'
     )
 
     class Meta:
         model = Reservation
-        fields = ['book_library', 'limit_date']
+        fields = ['limit_date']
 
     def clean_limit_date(self):
         limit_date = self.cleaned_data.get('limit_date')
-        if limit_date and limit_date > timezone.now() + timezone.timedelta(days=10):
-            raise forms.ValidationError("The limit date must be 10 days after the current date or less.")
+        if limit_date and limit_date < timezone.localdate() + timezone.timedelta(days=5):
+            raise forms.ValidationError("La date ne peut pas être inférieur à 5 jours après la date du jour.")
+        if limit_date and limit_date > timezone.localdate() + timezone.timedelta(days=20):
+            raise forms.ValidationError("La date ne peut pas être supérieur à 20 jours après la date du jour")
+
         return limit_date

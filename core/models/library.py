@@ -10,5 +10,5 @@ class Library(models.Model):
     longitude = models.FloatField(null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField(auto_now_add=True)
     books = models.ManyToManyField(Book, through=BookLibrary)
