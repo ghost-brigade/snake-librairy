@@ -39,3 +39,6 @@ class LibraryGet(ListView):
         qs = Library.objects.get(pk=query)
 
         return qs
+
+
+

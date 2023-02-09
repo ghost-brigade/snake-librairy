@@ -15,8 +15,7 @@
 
                     {% if request.user.is_superuser %}
                         <li>
-                            <a class="nav-link active lead" aria-current="page" href="{% url 'admin:index' %}">Panel
-                                admin</a>
+                            <a class="nav-link active lead" aria-current="page" href="{% url 'admin:index' %}">Panel admin</a>
                         </li>
                         <li>
                             <a class="nav-link active lead" aria-current="page"
@@ -41,18 +40,25 @@
                     {% elif request.user.is_bookseller %}
 
                         <li class="nav-item">
-                            <a class="nav-link lead" href="{% url 'current_user' %}">Mes livres</a>
+                            <a class="nav-link lead" href="{% url 'book_add' %}">Ajouter un livre</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link lead" href="{% url 'add_book' %}">Ajouter un livre</a>
+                            <a class="nav-link lead" href="{% url 'dashboard' %}">Ma librairie</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link lead" href="#">Gestion des emprunts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link lead" href="#">Retard de livres</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link lead" href="#">Groupes de lecture</a>
                         </li>
                         <li>
-                            <a class="nav-link active lead" aria-current="page"
-                               href="{% url 'user_profile' %}">Mon profil</a>
+                            <a class="nav-link active lead" aria-current="page" href="{% url 'user_profile' %}">Mon profil</a>
                         </li>
                         <li>
-                            <a class="nav-link active lead" aria-current="page"
-                               href="{% url 'logout' %}">Déconnexion</a>
+                            <a class="nav-link active lead" aria-current="page" href="{% url 'logout' %}">Déconnexion</a>
                         </li>
 
                     {% endif %}

@@ -117,3 +117,28 @@ class BookReservation(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+class BookAddLibrary(CreateView):
+    template_name = 'book/add_book_library.html'
+    form_class = AddBookForm
+
+    def get(self, request, *args, **kwargs):
+
+        if request.user.is_authenticated and request.user.is_bookseller:
+            return render(request, self.template_name, {
+                'form': self.form_class(),
+            })
+
+        return HttpResponseForbidden()
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.is_bookseller:
+            form = self.form_class(request.POST, request.FILES)
+
+            if form.is_valid():
+
+
+                return redirect('/')
+            return render(request, self.template_name, {'form': form})
+
+        return HttpResponseForbidden()

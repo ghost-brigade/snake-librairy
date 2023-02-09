@@ -1,20 +1,29 @@
 from django import forms
 from django.utils import timezone
-
-from core.models import Book
+from core.models import Book, Genre, BookLibrary
 from core.models import Reservation
 
 
 class AddBookForm(forms.ModelForm):
-    book_title = forms.CharField(max_length=30, label='Titre du livre')
+    title = forms.CharField(max_length=30, label='Titre du livre')
     cover = forms.ImageField(label='Couverture du livre')
-    collection = forms.IntegerField(label='Nombre d\'exemplaires')
-    genre = forms.CharField(max_length=30, label='Genre')
+    #collection = forms.IntegerField(label='Nombre d\'exemplaires')
+    genre = forms.ModelChoiceField(queryset=Genre.objects.all(), label='Genre du livre')
 
     class Meta:
         model = Book
         exclude = ['author', 'created_at']
 
+
+class AddBookLibraryForm(forms.ModelForm):
+    # book not in BookLibrary
+    book = forms.ModelChoiceField(queryset=Book.objects.exclude(id__in=BookLibrary.objects.values_list('book', flat=True)), label='Livre')
+    collection = forms.IntegerField(label='Nombre d\'exemplaires')
+    book_available = forms.BooleanField(label='Disponible', required=False)
+
+    class Meta:
+        model = BookLibrary
+        exclude = ['library', 'created_at']
 
 class BookReservationForm(forms.ModelForm):
     limit_date = forms.DateField(
