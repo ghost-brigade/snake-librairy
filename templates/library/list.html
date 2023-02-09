@@ -1,0 +1,47 @@
+{%  extends 'base.html' %}
+{% block content %}
+
+	<div class="container mt-3">
+
+		<div class="search">
+			<form action="" method="get">
+				<div class="input-group input-group-lg">
+					<input type="text" class="form-control" aria-label="Large" name="search" aria-describedby="inputGroup-sizing-lg">
+					<div class="input-group-btn">
+						<button type="submit" class="btn btn-success btn-lg">
+							Rechercher
+						</button>
+					</div>
+
+				</div>
+			</form>
+		</div>
+
+
+		<br>
+		<div class="container">
+			<div class="row g-2">
+				{% for library in libraries %}
+					<div class="col-md-4 col-sm-2">
+						<div class="p-3">
+							<div class="card" style="width: 18rem;">
+								<div class="card-body">
+									<a href="{% url 'library_get' id=library.id %}"><h5 class="card-title">{{ library.name }}</h5></a>
+									<ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Ville: {{ library.city }}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+                {% if not libraries %}
+                    Aucun résultat
+                {% endif %}
+			</div>
+		</div>
+
+	</div>
+
+
+{% endblock content %}
