@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+
+    <div class="container mt-3">
+
+        <div class="row">
+            <div class="col-md-9">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form |crispy }}
+                    <input class="btn btn-primary" type="submit" value="Réserver">
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}

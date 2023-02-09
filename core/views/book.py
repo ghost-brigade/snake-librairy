@@ -6,8 +6,8 @@ from django.views.generic import CreateView, ListView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 
-from core.forms import AddBookForm
-from core.models import Book
+from core.forms import AddBookForm, BookReservationForm
+from core.models import Book, Reservation, BookLibrary
 
 
 class BookList(ListView):
@@ -37,6 +37,8 @@ class BookUserList(LoginRequiredMixin, ListView):
         qs = super().get_queryset()
         qs = Book.objects.filter(author=self.request.user)
         return qs
+
+
 
 
 class BookAdd(CreateView):
@@ -80,3 +82,38 @@ class BookUpdate(OwnerMixin, SuccessMessageMixin, UpdateView):
     template_name = 'book/update_form.html'
     success_message = "Book is updated."
     success_url = reverse_lazy('book_list')
+
+class BookReservation(LoginRequiredMixin, CreateView):
+    model = Reservation
+    form_class = BookReservationForm
+    template_name = 'reservation/add_reservation.html'
+    success_url = reverse_lazy('book_list')
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden()
+        # Use RequestContext instead of render_to_response from 3.0
+        return render(request, self.template_name, {'form': self.form_class})
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden()
+        form = self.form_class(request.POST, request.FILES)
+
+        if form.is_valid():
+            book_library = BookLibrary.objects.get(id=kwargs['pk'])
+            if book_library.collection > 0:
+                book_library.collection -= 1
+                book_library.save()
+                reservation = form.save(commit=False)
+                reservation.book_library = book_library
+                reservation.user = request.user
+                reservation.limit_date = form.cleaned_data['limit_date']
+                reservation.save()
+
+            return redirect('/')
+        return render(request, self.template_name, {'form': form})
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

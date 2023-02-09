@@ -1,47 +1,52 @@
-{%  extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 
-	<div class="container mt-3">
+    <div class="container mt-3">
 
-		<div class="search">
-			<form action="" method="get">
-				<div class="input-group input-group-lg">
-					<input type="text" class="form-control" aria-label="Large" name="search" aria-describedby="inputGroup-sizing-lg">
-					<div class="input-group-btn">
-						<button type="submit" class="btn btn-success btn-lg">
-							Rechercher
-						</button>
-					</div>
+        <div class="search">
+            <form action="" method="get">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" aria-label="Large" name="search"
+                           aria-describedby="inputGroup-sizing-lg">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            Rechercher
+                        </button>
+                    </div>
 
-				</div>
-			</form>
-		</div>
+                </div>
+            </form>
+        </div>
 
 
-		<br>
-		<div class="container">
-			<div class="row g-2">
-				{% for book in books %}
-					<div class="col-md-4 col-sm-2">
-						<div class="p-3">
-							<div class="card" style="width: 18rem;">
-								<img src="{{ book.cover.url }}" class="card-img-top" alt="..." style="height: 250px;">
-								<div class="card-body">
-									<h5 class="card-title">{{ book.title }}</h5>
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">Collection:{{ book.collection }}</li>
+        <br>
+        <div class="container">
+            <div class="row g-2">
+                {% for book in books %}
+                    <div class="col-md-4 col-sm-2">
+                        <div class="p-3">
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ book.cover.url }}" class="card-img-top" alt="..." style="height: 250px;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ book.title }}</h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Collection:{{ book.collection }}</li>
                                         <li class="list-group-item">Genre: {{ book.genre|join:", " }}</li>
-										<li class="list-group-item">Auteur: {{ book.author.username }}</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-		</div>
+                                        <li class="list-group-item">Auteur: {{ book.author.username }}</li>
+                                        <li class="list-group-item">
+                                            <a href="{% url 'book_reservation' book.pk %}" class="btn btn-dark">Réserver</a>
 
-	</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
 
 
 {% endblock content %}
