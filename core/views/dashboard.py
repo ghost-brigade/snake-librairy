@@ -1,11 +1,21 @@
 from django.db.models import Q
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
-from django.utils.datetime_safe import datetime
-from django.views.generic import ListView, CreateView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib.messages.views import SuccessMessageMixin
 
-from core.forms import AddBookLibraryForm
-from core.models import BookLibrary, Library
+from core.forms import AddBookLibraryForm, UpdateBookLibraryForm
+from core.models import BookLibrary, Library, Reservation
+
+
+class OwnerMixin(object):
+    def get_queryset(self):
+        qs = super().get_queryset()
+        try:
+            return qs.filter(library__user=self.request.user)
+        except Exception:
+            raise PermissionError("You Don't Have A Permission for this View.")
 
 
 class LibraryDashboard(ListView):
@@ -17,8 +27,9 @@ class LibraryDashboard(ListView):
     def get_queryset(self):
         qs = BookLibrary.objects.filter(Q(library__user=self.request.user))
         query = self.request.GET.get('search')
+
         if query:
-            qs = BookLibrary.objects.filter(Q(book__title__icontains=query) and Q(library__user=self.request.user))
+            qs = BookLibrary.objects.filter(Q(book__title__startswith=query) and Q(library__user=self.request.user))
 
             return qs
         return qs
@@ -45,3 +56,38 @@ class LibraryDashboardAdd(CreateView):
             return render(request, self.template_name, {'form': form})
 
         return HttpResponseForbidden()
+
+
+class LibraryDashboardUpdate(OwnerMixin, SuccessMessageMixin, UpdateView):
+    model = BookLibrary
+
+    # remove field book from form
+    form_class = UpdateBookLibraryForm
+    context_object_name = 'booksLibrary'
+    template_name = 'dashboard/update_book_library.html'
+    success_message = "Book in your library is updated."
+    success_url = reverse_lazy('dashboard')
+
+
+class LibraryDashboardDelete(OwnerMixin, SuccessMessageMixin, DeleteView):
+    model = BookLibrary
+    context_object_name = 'booksLibrary'
+    success_message = "Book in your library is deleted."
+    success_url = reverse_lazy('dashboard')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_message = self.success_message
+        self.object.delete()
+        return redirect(self.success_url)
+
+
+class LoanDashboard(ListView):
+    model = Reservation
+    template_name = 'dashboard/loan/list.html'
+    context_object_name = 'reservations'
+    queryset = Reservation.objects.all()
+
+    def get_queryset(self):
+        qs = Reservation.objects.filter(Q(book_library__library__user=self.request.user))
+        return qs

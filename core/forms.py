@@ -25,6 +25,14 @@ class AddBookLibraryForm(forms.ModelForm):
         model = BookLibrary
         exclude = ['library', 'created_at']
 
+class UpdateBookLibraryForm(forms.ModelForm):
+    collection = forms.IntegerField(label='Nombre d\'exemplaires')
+    book_available = forms.BooleanField(label='Disponible', required=False)
+
+    class Meta:
+        model = BookLibrary
+        exclude = ['library', 'book', 'created_at']
+
 class BookReservationForm(forms.ModelForm):
     limit_date = forms.DateField(
         widget=forms.TextInput(attrs={'type': 'date'}),

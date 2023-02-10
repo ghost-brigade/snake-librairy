@@ -16,12 +16,11 @@ urlpatterns = [
     path('<int:id>', views.library.LibraryGet.as_view(), name=library_name_prefix + '_get'),
 
     # dashboard seller
-    path('dashboard', views.dashboard.LibraryDashboard.as_view(), name='dashboard'),
+    path('dashboard/book', views.dashboard.LibraryDashboard.as_view(), name='dashboard'),
     path('dashboard/book/add', views.dashboard.LibraryDashboardAdd.as_view(), name='dashboard_book_add'),
-    path('dashboard/book/update/<int:pk>', views.dashboard.LibraryDashboard.as_view(), name='dashboard_book_update'),
-    path('dashboard/book/delete/<int:pk>', views.dashboard.LibraryDashboard.as_view(), name='dashboard_book_delete'),
+    path('dashboard/book/update/<int:pk>', views.dashboard.LibraryDashboardUpdate.as_view(), name='dashboard_book_update'), # TODO: fix this
+    #path('dashboard/book/delete/<int:pk>', views.dashboard.LibraryDashboardDelete.as_view(), name='dashboard_book_delete'), # TODO: fix this
 
-    #path('library/book/search/<string:name>', views.book.BookSearch.as_view(), name=book_name_prefix + '_search_library'),
+    path('dashboard/loan', views.dashboard.LoanDashboard.as_view(), name='dashboard_loan'),
 
-    #path('bookseller/', views.library.BookSellerList.as_view(), name=book_seller_name_prefix + '_list'),
 ]
