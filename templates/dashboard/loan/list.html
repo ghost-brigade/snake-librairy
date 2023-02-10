@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+	<div class="container mt-3">
+         {% for reservation in reservations %}
+            <div class="card">
+                <div class="card-body">
+                    Emprunteur: {{ reservation.user.first_name }} {{ reservation.user.last_name }}<br>
+                    Date de rendu : {{ reservation.limit_date|date:"d/m/Y" }}<br>
+                    Livre : {{ reservation.book_library.book.title }}
+                </div>
+            </div>
+        {% endfor %}
+        {% if reservations|length == 0 %}
+            <div class="card">
+                <div class="card-body">
+                    Aucune réservation en cours
+                </div>
+            </div>
+        {% endif %}
+	</div>
+
+
+{% endblock content %}

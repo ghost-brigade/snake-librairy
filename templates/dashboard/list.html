@@ -38,9 +38,12 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ bookLibrary.book.title }}</h5>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Collection:{{ bookLibrary.book.collection }}</li>
+                                        <li class="list-group-item">Stock: {{ bookLibrary.collection }}</li>
                                         <li class="list-group-item">Genre: {{ bookLibrary.book.genre|join:", " }}</li>
                                     </ul>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="{% url 'dashboard_book_update' bookLibrary.book.id %}" class="btn btn-primary">Modifier</a>
                                 </div>
                             </div>
                         </div>
