@@ -6,7 +6,8 @@ urlpatterns = [
          name='customer_signup'),
     path('bookseller/signup/', views.BookSellerSignUpView.as_view(),
          name='bookseller_signup'),
-    path('user/profile/', views.profile, name='user_profile'),
+    path('profile/', views.profile, name='user_profile'),
+    path('profile/reservation', views.reservation, name='user_reservation'),
     path("logout/", views.logout_view, name='logout'),
 
 ]

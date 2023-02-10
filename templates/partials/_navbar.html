@@ -13,9 +13,16 @@
 
                 {% if request.user.is_authenticated %}
 
+                    <li>
+                        <a class="nav-link active lead" aria-current="page" href="{% url 'user_reservation' %}">Mes
+                            réservations
+                        </a>
+                    </li>
+
                     {% if request.user.is_superuser %}
                         <li>
-                            <a class="nav-link active lead" aria-current="page" href="{% url 'admin:index' %}">Panel admin</a>
+                            <a class="nav-link active lead" aria-current="page" href="{% url 'admin:index' %}">Panel
+                                admin</a>
                         </li>
                         <li>
                             <a class="nav-link active lead" aria-current="page"
@@ -55,10 +62,12 @@
                             <a class="nav-link lead" href="#">Groupes de lecture</a>
                         </li>
                         <li>
-                            <a class="nav-link active lead" aria-current="page" href="{% url 'user_profile' %}">Mon profil</a>
+                            <a class="nav-link active lead" aria-current="page" href="{% url 'user_profile' %}">Mon
+                                profil</a>
                         </li>
                         <li>
-                            <a class="nav-link active lead" aria-current="page" href="{% url 'logout' %}">Déconnexion</a>
+                            <a class="nav-link active lead" aria-current="page"
+                               href="{% url 'logout' %}">Déconnexion</a>
                         </li>
 
                     {% endif %}

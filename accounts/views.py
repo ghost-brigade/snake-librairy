@@ -67,3 +67,9 @@ def profile(request):
     context = {'user_profile': user_profile}
 
     return render(request, 'user_profile.html', context)
+
+def reservation(request):
+    user_profile = get_object_or_404(User, id=request.user.id)
+    context = {'user_profile': user_profile}
+
+    return render(request, 'reservation/my_reservation.html', context)
