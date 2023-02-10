@@ -18,9 +18,10 @@ urlpatterns = [
     # dashboard seller
     path('dashboard/book', views.dashboard.LibraryDashboard.as_view(), name='dashboard'),
     path('dashboard/book/add', views.dashboard.LibraryDashboardAdd.as_view(), name='dashboard_book_add'),
-    path('dashboard/book/update/<int:pk>', views.dashboard.LibraryDashboardUpdate.as_view(), name='dashboard_book_update'), # TODO: fix this
+    path('dashboard/book/update/<int:pk>', views.dashboard.LibraryDashboardUpdate.as_view(), name='dashboard_book_update'),
     #path('dashboard/book/delete/<int:pk>', views.dashboard.LibraryDashboardDelete.as_view(), name='dashboard_book_delete'), # TODO: fix this
 
     path('dashboard/loan', views.dashboard.LoanDashboard.as_view(), name='dashboard_loan'),
+    path('dashboard/loan/update/<int:pk>', views.dashboard.LoanDashboardUpdate.as_view(), name='dashboard_loan_update'),
 
 ]

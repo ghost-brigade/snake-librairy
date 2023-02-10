@@ -91,3 +91,12 @@ class LoanDashboard(ListView):
     def get_queryset(self):
         qs = Reservation.objects.filter(Q(book_library__library__user=self.request.user))
         return qs
+
+
+class LoanDashboardUpdate(SuccessMessageMixin, UpdateView):
+    model = Reservation
+    fields = ['status']
+    context_object_name = 'reservations'
+    template_name = 'dashboard/loan/update.html'
+    success_message = "Book in your library is updated."
+    success_url = reverse_lazy('dashboard_loan')

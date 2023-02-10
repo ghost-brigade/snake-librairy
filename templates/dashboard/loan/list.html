@@ -2,13 +2,16 @@
 {% block content %}
 
 	<div class="container mt-3">
-         {% for reservation in reservations %}
+        {% for reservation in reservations %}
             <div class="card">
                 <div class="card-body">
                     Emprunteur: {{ reservation.user.first_name }} {{ reservation.user.last_name }}<br>
                     Date de rendu : {{ reservation.limit_date|date:"d/m/Y" }}<br>
                     Livre : {{ reservation.book_library.book.title }}
                 </div>
+                {% if reservation.status == False %}
+                    <a href="{% url 'dashboard_loan_update' reservation.id %}" class="btn btn-primary">Rendre</a>
+                {% endif %}
             </div>
         {% endfor %}
         {% if reservations|length == 0 %}
