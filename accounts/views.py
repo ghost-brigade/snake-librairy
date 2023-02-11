@@ -68,6 +68,12 @@ def logout_view(request):
 
 def profile(request):
     user_profile = get_object_or_404(User, id=request.user.id)
+
+    if user_profile.is_bookseller:
+        user_profile.role = 'Libraire'
+    elif user_profile.is_customer:
+        user_profile.role = 'Client'
+
     context = {'user_profile': user_profile}
 
     return render(request, 'user_profile.html', context)
