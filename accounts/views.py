@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView, DetailView
 from datetime import datetime, timedelta
 
-from core.models import Reservation
+from core.models import Reservation, Library
 from .forms import CreateUserForm
 from .models import CustomerUser, BookSellerUser, User
 
@@ -53,6 +53,8 @@ class BookSellerSignUpView(CreateView):
             # user.set_password(form.cleaned_data['password'])
             user.save()
             BookSellerUser.objects.create(user=user)
+
+            library = Library.objects.create(name=user.username + ' library', user=user)
 
             # user = U.objects.get(email=user.email)
             return redirect('login')
