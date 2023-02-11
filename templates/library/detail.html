@@ -1,16 +1,16 @@
-{%  extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
-	<div class="container mt-3">
+    <div class="container mt-3">
+        <h1>{{ library.name }}</h1>
+        <p>Ville : {{ library.city }}</p>
 
-		Nom library : {{ library.name }}
-		<br>
-        Ville : {{ library.city }}
-        <br>
-        Carte :
+        Localisation :
         <br>
         <div class="mapouter">
             <div class="gmap_canvas">
-                <iframe width="400" height="300" id="gmap_canvas" src="https://maps.google.com/maps?q={{ library.latitude }},{{ library.longitude }}&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                <iframe width="400" height="300" id="gmap_canvas"
+                        src="https://maps.google.com/maps?q={{ library.latitude }},{{ library.longitude }}&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                 <a href="https://embedgooglemap.net/124/"></a>
                 <br>
                 <a href="https://www.embedgooglemap.net">embed google map</a>
@@ -18,31 +18,44 @@
         </div>
         <br>
 
-      {% for bookLibrary in booksLibrary %}
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ bookLibrary.book.title }}</h5>
-                <p class="card-text">{{ bookLibrary.book.description }}</p>
-                <a href="{% url 'book_reservation' bookLibrary.pk %}" class="card-link">Réserver</a>
-                <a href="#" class="card-link">Another link</a>
+        {% for bookLibrary in booksLibrary %}
+            <div class="col-md-4 col-sm-2">
+                <div class="p-3">
+                    <div class="card">
+                        <img src="{{ bookLibrary.book.cover.url }}" class="card-img-top" alt="..."
+                             style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            {#<a href="#" class="card-link">Another link</a>#}
+                            <h5 class="card-title">{{ bookLibrary.book.title }}</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Collection:{{ bookLibrary.book.collection }}</li>
+                                <li class="list-group-item">Genre: {{ bookLibrary.book.genre|join:", " }}</li>
+                                <li class="list-group-item">Auteur: {{ bookLibrary.book.author.username }}</li>
+                                <li class="list-group-item">
+                                    <a href="{% url 'book_reservation' bookLibrary.pk %}" class="btn btn-dark">Réserver</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-      {% endfor %}
-	</div>
+        {% endfor %}
+    </div>
 {% endblock content %}
 {% block extracss %}
     <style>
         .mapouter {
-            position:relative;
-            text-align:right;
-            height:300px;
-            width:400px;
+            position: relative;
+            text-align: right;
+            height: 300px;
+            width: 400px;
         }
+
         .gmap_canvas {
-            overflow:hidden;
-            background:none !important;
-            height:300px;
-            width:400px;
+            overflow: hidden;
+            background: none !important;
+            height: 300px;
+            width: 400px;
         }
     </style>
 {% endblock extracss %}
