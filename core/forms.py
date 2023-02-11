@@ -36,7 +36,8 @@ class UpdateBookLibraryForm(forms.ModelForm):
 class BookReservationForm(forms.ModelForm):
     limit_date = forms.DateField(
         widget=forms.TextInput(attrs={'type': 'date'}),
-        help_text='La date de retour du livre ne peut pas être supérieur à 10 jours après la date du jour.'
+        help_text='La date de retour du livre est la date maximal pour rendre le livre. Si vous ne le faites pas, vous serez sanctionné.<br>La date ne peut pas être inférieur à 5 jours après la date du jour et ne peut pas être supérieur à 20 jours après la date du jour.',
+        label='Date de retour du livre'
     )
 
     class Meta:

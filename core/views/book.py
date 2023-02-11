@@ -93,7 +93,7 @@ class BookReservation(LoginRequiredMixin, CreateView):
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
         # Use RequestContext instead of render_to_response from 3.0
-        return render(request, self.template_name, {'form': self.form_class})
+        return render(request, self.template_name, {'form': self.form_class, 'book': BookLibrary.objects.get(id=kwargs['pk']).book})
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

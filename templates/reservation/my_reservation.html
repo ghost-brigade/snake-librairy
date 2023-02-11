@@ -1,6 +1,32 @@
-{%  extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 
     <h1>Mes réservations</h1>
+
+    <div class="container">
+        <div class="row g-2">
+            {% for reservation in reservations %}
+                <div class="col-md-4 col-sm-2">
+                    <div class="p-3">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ reservation.book_library.book.cover.url }}" class="card-img-top"
+                                 style="height: 250px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ reservation.book_library.book.title }}</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        Genre: {{ reservation.book_library.book.genre|join:", " }}</li>
+                                    <li class="list-group-item">
+                                        Auteur: {{ reservation.book_library.book.author.username }}</li>
+                                    <li class="list-group-item">Date limite: {{ reservation.limit_date|date:"d/m/Y" }} </li>
+                                    <li class="list-group-item" style="font-weight: bold">{{ reservation.days_left }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock content %}
