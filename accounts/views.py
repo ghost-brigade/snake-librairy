@@ -1,7 +1,9 @@
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView, DetailView
+from datetime import datetime, timedelta
 
+from core.models import Reservation
 from .forms import CreateUserForm
 from .models import CustomerUser, BookSellerUser, User
 
@@ -70,6 +72,15 @@ def profile(request):
 
 def reservation(request):
     user_profile = get_object_or_404(User, id=request.user.id)
-    context = {'user_profile': user_profile}
+    reservations = Reservation.objects.filter(user=user_profile)
+    context = {'user_profile': user_profile, 'reservations': reservations}
+
+    for reservation in reservations:
+        today = datetime.now().date()
+        diff = reservation.limit_date - today
+        if(diff.days < 1):
+            reservation.days_left = 'La date limite a expiré'
+        else:
+            reservation.days_left = 'Il vous reste ' + str(diff.days) + ' jours pour rendre votre livre'
 
     return render(request, 'reservation/my_reservation.html', context)
