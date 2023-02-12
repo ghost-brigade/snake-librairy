@@ -4,7 +4,7 @@ from django.views.generic import CreateView, DetailView
 from datetime import datetime, timedelta
 
 from core.models import Reservation
-from .forms import CreateUserForm
+from .forms import CreateUserForm, UpdateUserForm
 from .models import CustomerUser, BookSellerUser, User
 
 
@@ -66,9 +66,16 @@ def logout_view(request):
 
 def profile(request):
     user_profile = get_object_or_404(User, id=request.user.id)
-    context = {'user_profile': user_profile}
+    form_class = UpdateUserForm
+    context = {'user_profile': user_profile, 'form': form_class}
 
-    return render(request, 'user_profile.html', context)
+    if request.method == 'POST':
+        form = form_class(data=request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')
+
+    return render(request, 'user_profile.html', context, )
 
 def reservation(request):
     user_profile = get_object_or_404(User, id=request.user.id)

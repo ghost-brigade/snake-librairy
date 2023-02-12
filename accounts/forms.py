@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from accounts.models import User
 
@@ -23,3 +23,11 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email']
+
+class UpdateUserForm(UserChangeForm):
+    username = forms.CharField(max_length=30, label='Nom d\'utilisateur')
+    email = forms.CharField(max_length=100, label='Adresse mail')
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
