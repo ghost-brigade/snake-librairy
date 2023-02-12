@@ -17,7 +17,10 @@ class AddBookForm(forms.ModelForm):
 
 class AddBookLibraryForm(forms.ModelForm):
     # book not in BookLibrary
-    book = forms.ModelChoiceField(queryset=Book.objects.exclude(id__in=BookLibrary.objects.values_list('book', flat=True)), label='Livre')
+    # my_bookLibrary = BookLibrary.objects.filter(library__user=self.request.user)
+
+
+    book = forms.ModelChoiceField(queryset=Book.objects.all(), label='Titre du livre')
     collection = forms.IntegerField(label='Nombre d\'exemplaires')
     book_available = forms.BooleanField(label='Disponible', required=False)
 

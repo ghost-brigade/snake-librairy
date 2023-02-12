@@ -17,29 +17,44 @@
             </div>
         </div>
         <br>
+        <div class="search">
+            <form action="" method="get">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" aria-label="Large" name="search"
+                           aria-describedby="inputGroup-sizing-lg">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            Rechercher
+                        </button>
+                    </div>
 
-        {% for bookLibrary in booksLibrary %}
-            <div class="col-md-4 col-sm-2">
-                <div class="p-3">
-                    <div class="card">
-                        <img src="{{ bookLibrary.book.cover.url }}" class="card-img-top" alt="..."
-                             style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            {#<a href="#" class="card-link">Another link</a>#}
-                            <h5 class="card-title">{{ bookLibrary.book.title }}</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Collection:{{ bookLibrary.book.collection }}</li>
-                                <li class="list-group-item">Genre: {{ bookLibrary.book.genre|join:", " }}</li>
-                                <li class="list-group-item">Auteur: {{ bookLibrary.book.author.username }}</li>
-                                <li class="list-group-item">
-                                    <a href="{% url 'book_reservation' bookLibrary.pk %}" class="btn btn-dark">Réserver</a>
-                                </li>
-                            </ul>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            {% for bookLibrary in booksLibrary %}
+                <div class="col-md-4 col-sm-2">
+                    <div class="p-3">
+                        <div class="card">
+                            <img src="{{ bookLibrary.book.cover.url }}" class="card-img-top" alt="..."
+                                 style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                {#<a href="#" class="card-link">Another link</a>#}
+                                <h5 class="card-title">{{ bookLibrary.book.title }}</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Collection:{{ bookLibrary.book.collection }}</li>
+                                    <li class="list-group-item">Genre: {{ bookLibrary.book.genre|join:", " }}</li>
+                                    <li class="list-group-item">Auteur: {{ bookLibrary.book.author.username }}</li>
+                                    <li class="list-group-item">
+                                        <a href="{% url 'book_reservation' bookLibrary.pk %}" class="btn btn-dark">Réserver</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}
 {% block extracss %}
