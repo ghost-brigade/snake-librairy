@@ -55,7 +55,7 @@ class BookSellerSignUpView(CreateView):
             user.save()
             BookSellerUser.objects.create(user=user)
 
-            library = Library.objects.create(name=user.username + ' library', user=user)
+            library = Library.objects.create(name=user.username + ' librairie', user=user)
 
             # user = U.objects.get(email=user.email)
             return redirect('login')

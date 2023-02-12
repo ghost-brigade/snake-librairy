@@ -58,7 +58,7 @@ AUTH_USER_MODEL = 'accounts.User'
 # crispy forms settings
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-LOGIN_REDIRECT_URL = 'book_list'
+LOGIN_REDIRECT_URL = 'library_list'
 
 TEMPLATES = [
     {
