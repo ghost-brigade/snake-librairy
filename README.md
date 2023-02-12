@@ -3,7 +3,7 @@
 
 ## Description
 
-Description of snake library..
+A comprehensive Django project that catalogs a diverse range of libraries and their extensive book collections, offering a seamless browsing experience for avid readers.
 
 ## How to use
 
@@ -23,7 +23,14 @@ Create administrator user : `python3 manage.py createsuperuser`
 
 ## Default users
 
-* Administrateur : admin@gmail.com / admin
+* Administrateur : 
+  * admin@gmail.com / admin
+* Client :
+  * arjona@gmail.com / m0td3P@sse
+  * louis@gmail.com / m0td3P@sse
+* Libraire : 
+  * otaku@gmail.com / m0td3P@sse
+  * libraire@gmail.com / m0td3P@sse
 
 ## Technologies Used
 
@@ -31,9 +38,9 @@ Create administrator user : `python3 manage.py createsuperuser`
 
 ## Contributors
 
-* **Maxime Carluer** - [github](https://github.com/maximecarl)
 * **Anthony Arjona** - [github](https://github.com/anthonyarjona)
 * **Louis Moulin** - [github](https://github.com/MoulinLouis)
+* **Maxime Carluer** - [github](https://github.com/maximecarl)
 
 ## License
 
