@@ -3,6 +3,8 @@
 
 ## Description
 
+Description of snake library..
+
 ## How to use
 
 1. Clone the repository.
