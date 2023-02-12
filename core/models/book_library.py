@@ -8,3 +8,6 @@ class BookLibrary(models.Model):
     collection = models.PositiveIntegerField()
     library = models.ForeignKey('Library', on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.book.title + ' - ' + self.library.name
