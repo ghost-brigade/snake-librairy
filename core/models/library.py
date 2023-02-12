@@ -6,9 +6,12 @@ from accounts.models import User
 
 class Library(models.Model):
     name = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
+    city = models.CharField(max_length=255, null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     #created_at = models.DateField(auto_now_add=True)
     books = models.ManyToManyField(Book, through=BookLibrary)
+
+    def __str__(self):
+        return self.name

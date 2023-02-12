@@ -9,3 +9,6 @@ class Reservation(models.Model):
     status = models.BooleanField(default=False)
     limit_date = models.DateField()
     created_at = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.book_library.book.title + ' - ' + self.user.username

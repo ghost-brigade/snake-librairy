@@ -3,8 +3,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView, DetailView
 from datetime import datetime, timedelta
 
-from core.models import Reservation
+from core.models import Reservation, Library
 from .forms import CreateUserForm, UpdateUserForm
+from core.models import Reservation
 from .models import CustomerUser, BookSellerUser, User
 
 
@@ -54,6 +55,8 @@ class BookSellerSignUpView(CreateView):
             user.save()
             BookSellerUser.objects.create(user=user)
 
+            library = Library.objects.create(name=user.username + ' librairie', user=user)
+
             # user = U.objects.get(email=user.email)
             return redirect('login')
         return render(request, self.template_name, {'form': form})
@@ -66,6 +69,14 @@ def logout_view(request):
 
 def profile(request):
     user_profile = get_object_or_404(User, id=request.user.id)
+
+    if user_profile.is_superuser:
+        user_profile.role = 'Administrateur'
+    elif user_profile.is_bookseller:
+        user_profile.role = 'Libraire'
+    elif user_profile.is_customer:
+        user_profile.role = 'Client'
+
     form_class = UpdateUserForm
     context = {'user_profile': user_profile, 'form': form_class}
 
